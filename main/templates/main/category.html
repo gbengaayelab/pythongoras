@@ -1,0 +1,35 @@
+{% extends 'main/header.html' %}
+{% block content %}
+
+<!--div class="container"> -->
+<div class="card-panel materialize-red lighten-2"><h3 class="text-align center">Welcome to Pythongoras.io</h3></div>
+
+<div class="row">
+    {% for tutorial, partone in first_part.items %}
+    <div class="col s12 m6 l4">
+        <a href="{{category_object.category_link}}" , style="color: #000000">
+            <div class="card hoverable floating" style="height:200px">
+                <div class="card-image">
+                    <img src="{{tutorial_object.tutorial_image_desc}} ">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">
+                        {{tutorial.tutorial_series}}
+                        <p><strong>Overview:</strong></p>
+                        <p>{{tutorial.series_summary|safe}}</p>
+                    </div>
+
+                    <div class="card-action">
+                        <a href="">Visit</a>
+                    </div>
+                </div>
+                        <a class="btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">Go</i></a>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+
+<!--</div> -->
+{% endblock %}
