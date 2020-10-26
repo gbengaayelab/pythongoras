@@ -13,21 +13,23 @@ def single_slug(request, single_slug):
         # This next Line of code is referencing Tutorial_series model of the attribute Tutorial_category Foreign Keys and reference the category link in the Tutorial Category
         matching_series = TutorialSeries.objects.filter(tutorial_category__category_link=single_slug)
         # This next line of code matches the tutorials in the matching series together
-        series_url = {}
+        series_urls = {}
         for matching in matching_series.all():
-            first_part = Tutorials.objects.filter(tutorial_series__tutorial_series=matching.tutorial_series).earliest('tutorial_published_date')
-            series_url[matching] = first_part
+            first_part = Tutorials.objects.filter(tutorial_series__tutorial_series=matching.tutorial_series).earliest(
+                'tutorial_published_date')
+            series_urls[matching] = first_part.tutorial_link
 
         return render(request=request,
                       template_name='main/category.html',
-                      context={'first_part': series_url})
+                      context={'first_parts': series_urls})
 
     tutorials = [t.tutorial_link for t in Tutorials.objects.all()]
     if single_slug in tutorials:
-        return HttpResponse(f'{single_slug} is in tutorial')
+        specific_tutorial = Tutorials.objects.get(tutorial_link = single_slug)
 
-    return HttpResponse(f'{single_slug} does not correspond to any path')
-
+        return render(request,
+                      'main/tutorial',
+                      {'tutorial': specific_tutorial})
 
 def index(request):
     categories = TutorialsCategory.objects.all()

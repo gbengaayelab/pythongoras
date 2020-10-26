@@ -5,18 +5,18 @@
 <div class="card-panel materialize-red lighten-2"><h3 class="text-align center">Welcome to Pythongoras.io</h3></div>
 
 <div class="row">
-    {% for tutorial, partone in first_part.items %}
+    {% for tut, partone in first_parts.items %}
     <div class="col s12 m6 l4">
-        <a href="{{category_object.category_link}}" , style="color: #000000">
+        <a href="{{partone}}" , style="color: #000000">
             <div class="card hoverable floating" style="height:200px">
                 <div class="card-image">
-                    <img src="{{tutorial_object.tutorial_image_desc}} ">
+                    <img src="{{tut.tutorial_image_desc}} ">
                 </div>
                 <div class="card-content">
                     <div class="card-title">
-                        {{tutorial.tutorial_series}}
+                        {{tut.tutorial_series}}
                         <p><strong>Overview:</strong></p>
-                        <p>{{tutorial.series_summary|safe}}</p>
+                        <p>{{tut.series_summary}}</p>
                     </div>
 
                     <div class="card-action">
