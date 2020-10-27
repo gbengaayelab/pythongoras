@@ -25,11 +25,15 @@ def single_slug(request, single_slug):
 
     tutorials = [t.tutorial_link for t in Tutorials.objects.all()]
     if single_slug in tutorials:
-        specific_tutorial = Tutorials.objects.get(tutorial_link = single_slug)
-
+        specific_tutorial = Tutorials.objects.get(tutorial_link=single_slug)
+        other_tutorial_series = Tutorials.objects.filter(tutorial_series__tutorial_series=specific_tutorial.tutorial_series).order_by('tutorial_published_date')
+        tutorial_series_index = list(other_tutorial_series).index(specific_tutorial)
         return render(request,
-                      'main/tutorial',
-                      {'tutorial': specific_tutorial})
+                      'main/tutorial.html',
+                      {'tutorial': specific_tutorial,
+                      'side_bar': other_tutorial_series,
+                      'tutorial_index': tutorial_series_index})
+
 
 def index(request):
     categories = TutorialsCategory.objects.all()

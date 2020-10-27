@@ -2,27 +2,43 @@
 {% block content %}
 
 <!--div class="container"> -->
-<div class="card-panel materialize-red lighten-2"><h3 class="text-align center">Welcome to Pythongoras.io</h3></div>
-
 <div class="row">
-    {% for tutorial_object in tutorial %}
-    <div class="col s12 m6">
-        <div class="card">
-            <div class="container">
-                <img src="{{tutorial_object.tutorial_image_desc}} ">
-                <span class="card-title">{{tutorial_object.tutorial_title}}</span>
-                <span>{{tutorial_object.tutorial_published_date}}</span>
+    <div class="col s12 m8 l8">
+        <div class="container">
+            <div class="card">
+                <div class="card-image height:200 width: 200">
+                    <img src="{{tutorial.tutorial_image_desc}}">
+                </div>
             </div>
 
-                <div>
-                    {{tutorial_object.tutorial_content}}
-                </div>
-
+            <p>
+            <h1><span>{{tutorial.tutorial_title}}</span></h1></p>
+            <p>Published:<span>{{tutorial.tutorial_published_date}}</span></p>
+        </div>
+        <div class="container">
+            <p>{{tutorial.tutorial_content|safe}}</p>
         </div>
     </div>
-    {% endfor %}
+    <div class="col s12 m4 l4">
+        <ul class="collapsible popout">
+            {% for tutorial in side_bar %}
+                {% if forloop.counter0 == tutorial_index %}
+                    <li class="active">
+                        <div class="collapsible-header">{{tutorial.tutorial_title}}<br>(Currently Viewing)</div>
+                    </li>
+                 {% else %}
+                    <li>
+                        <div class="collapsible-header">{{tutorial.tutorial_title}}</div>
+                        <div class="collapsible-body">
+                            <p>
+                                <a href="/{{tutorial.tutorial_link}}"><button class="btn waves-effect  waves-light right-align"
+                                        style="background-color: blue; color: white">Go</button></a>
+                            </p>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
 </div>
-
-
-<!--</div> -->
 {% endblock %}
